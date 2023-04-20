@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".add_student"
+    tools:context=".add_teacherActivity"
     android:background="@drawable/gradient1">
 
 
@@ -13,7 +13,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="6dp"
         android:fontFamily="casual"
-        android:text="Student List"
+        android:text="Add Teacher"
         android:textColor="@color/DarkGreen"
         android:textSize="30sp"
         android:textStyle="bold"
@@ -21,17 +21,18 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
+
     <androidx.appcompat.widget.AppCompatImageView
         android:id="@+id/imageview"
-        android:layout_width="172dp"
-        android:layout_height="146dp"
-        android:layout_marginTop="45dp"
-        android:layout_marginBottom="510dp"
+        android:layout_width="197dp"
+        android:layout_height="148dp"
+        android:layout_marginTop="5dp"
+        android:layout_marginBottom="535dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.746" />
 
     <com.google.android.material.textfield.TextInputLayout
         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
@@ -43,10 +44,10 @@
         app:layout_constraintTop_toTopOf="parent">
 
         <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/sname"
+            android:id="@+id/tname"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="Student Name"
+            android:hint="Teacher Name"
             android:inputType="textPersonName"
             android:nextFocusDown="@id/sid"
             />
@@ -62,11 +63,11 @@
         app:layout_constraintTop_toTopOf="parent">
 
         <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/sid"
+            android:id="@+id/tid"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="Student ID"
-            android:inputType="numberPassword"
+            android:hint="Teacher ID"
+            android:inputType="text"
             android:nextFocusDown="@id/sdob"/>
     </com.google.android.material.textfield.TextInputLayout>
 
@@ -80,11 +81,11 @@
         app:layout_constraintTop_toTopOf="parent">
 
         <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/sdob"
+            android:id="@+id/cid"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="Student DOB"
-            android:inputType="date"
+            android:hint="Teacher course id"
+            android:inputType="text"
             android:nextFocusDown="@id/email"/>
     </com.google.android.material.textfield.TextInputLayout>
 
@@ -99,11 +100,11 @@
         app:layout_constraintTop_toTopOf="parent">
 
         <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/email"
+            android:id="@+id/subj"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="Student Email"
-            android:inputType="textEmailAddress"
+            android:hint="Teacher Subject"
+            android:inputType="text"
             android:nextFocusDown="@id/sphone"/>
     </com.google.android.material.textfield.TextInputLayout>
 
@@ -119,11 +120,11 @@
         app:layout_constraintTop_toTopOf="parent">
 
         <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/sphone"
+            android:id="@+id/tdig"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="Student Phone"
-            android:inputType="phone"
+            android:hint="Teacher Designation"
+            android:inputType="text"
             android:nextFocusDown="@id/save"/>
     </com.google.android.material.textfield.TextInputLayout>
 
@@ -142,7 +143,7 @@
         android:id="@+id/delete"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="28dp"
+        android:layout_marginEnd="32dp"
         android:text="Delete"
         android:layout_marginTop="30dp"
         android:backgroundTint="@color/teal_700"

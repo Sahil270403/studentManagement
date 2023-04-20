@@ -29,6 +29,7 @@ class DatabaseHelper (context: Context) : SQLiteOpenHelper(context, DB_NAME,null
         private const val TEACHER_DESIGNATION = "designation"
         private const val TEACHER_COURSE_ID = "course_id"
 
+
     }
 
     override fun onCreate(db: SQLiteDatabase?) {
@@ -70,7 +71,7 @@ class DatabaseHelper (context: Context) : SQLiteOpenHelper(context, DB_NAME,null
         val teacherList = ArrayList<TeacherList>()
         val db = writableDatabase
         val selectQuery = "SELECT * FROM $TABLE_TEACHER"
-        val cursor = db.rawQuery(selectQuery, null)
+        val cursor = db?.rawQuery(selectQuery,null)
         if (cursor != null && cursor.moveToFirst()) {
             do {
                 val task = TeacherList()
@@ -85,6 +86,7 @@ class DatabaseHelper (context: Context) : SQLiteOpenHelper(context, DB_NAME,null
         }
         return teacherList
     }
+
 
     //insert
 
@@ -101,8 +103,25 @@ class DatabaseHelper (context: Context) : SQLiteOpenHelper(context, DB_NAME,null
         val success = db.insert(TABLE_STUDENT,null,values)
         db.close()
         return Integer.parseInt("${success}") != -1
-//        return (Integer.parseInt("$ success") != -1)
     }
+
+    fun addTeacher(task:TeacherList):Boolean{
+
+        val db = this.writableDatabase
+        val values = ContentValues()
+        values.put(TEACHER_ID,task.id)
+        values.put(TEACHER_NAME,task.name)
+        values.put(TEACHER_SUBJECT,task.subject)
+        values.put(TEACHER_DESIGNATION,task.desig)
+        values.put(TEACHER_COURSE_ID,task.courseid)
+
+        val success = db.insert(TABLE_TEACHER,null,values)
+        db.close()
+        return Integer.parseInt("${success}") != -1
+    }
+
+
+
 
     // select the data of particular id
 
@@ -125,6 +144,27 @@ class DatabaseHelper (context: Context) : SQLiteOpenHelper(context, DB_NAME,null
         return task
     }
 
+    @SuppressLint("Range")
+    fun getTaskT(id: Int): TeacherList? {
+        val db = this.readableDatabase
+        val selectQuery = "SELECT * FROM $TABLE_TEACHER WHERE $TEACHER_ID = $id"
+        val cursor = db.rawQuery(selectQuery, null)
+        var taskT: TeacherList? = null
+        if (cursor.moveToFirst()) {
+            val id = cursor.getInt(cursor.getColumnIndex(TEACHER_ID))
+            val name = cursor.getString(cursor.getColumnIndex(TEACHER_NAME))
+            val subject = cursor.getString(cursor.getColumnIndex(TEACHER_SUBJECT))
+            val designation = cursor.getString(cursor.getColumnIndex(TEACHER_DESIGNATION))
+            val courseId = cursor.getString(cursor.getColumnIndex(TEACHER_COURSE_ID))
+            taskT = TeacherList(id, name, subject, designation, courseId)
+        }
+        cursor.close()
+        db.close()
+        return taskT
+    }
+
+
+
     fun deleteStudent(id:Int):Boolean{
 
         val db = this.writableDatabase
@@ -132,6 +172,15 @@ class DatabaseHelper (context: Context) : SQLiteOpenHelper(context, DB_NAME,null
         db.close()
         return Integer.parseInt("$_success") != -1
     }
+
+    fun deleteTeacher(id:Int):Boolean{
+
+        val db = this.writableDatabase
+        val _success = db.delete(TABLE_TEACHER, TEACHER_ID + "=?" , arrayOf(id.toString())).toLong()
+        db.close()
+        return Integer.parseInt("$_success") != -1
+    }
+
 
     fun updateStudent(task: StudentList):Boolean{
 
@@ -147,4 +196,17 @@ class DatabaseHelper (context: Context) : SQLiteOpenHelper(context, DB_NAME,null
         return Integer.parseInt("$_success") != -1
     }
 
+    fun updateTeacher(task: TeacherList):Boolean{
+
+        val db = this.writableDatabase
+        val values = ContentValues()
+        values.put(TEACHER_ID,task.id)
+        values.put(TEACHER_NAME,task.name)
+        values.put(TEACHER_SUBJECT,task.subject)
+        values.put(TEACHER_DESIGNATION,task.desig)
+        values.put(TEACHER_COURSE_ID,task.courseid)
+        val _success = db.update(TABLE_TEACHER, values, TEACHER_ID + "=?" , arrayOf(task.id.toString())).toLong()
+        db.close()
+        return Integer.parseInt("$_success") != -1
+    }
 }
